@@ -18,6 +18,6 @@
 
 srun julia run/JUSTUS_draft_run/run_parallel_justus_static.jl $SLURM_ARRAY_TASK_ID $1 $2 $3 $4
 
-#ARGS[1] is the file label, running from 0 to 499, with 2 trajectories per file
+#ARGS[1] is the file label, running from 0 to 999
 #ARGS[2] is the pumping strength
 #ARGS[3] is the temperature

@@ -1,3 +1,6 @@
+using DifferentialEquations
+include("../src/selforg_core.jl")
+
 #Read pump strength from parameters
 
 temp = parse(Int, ARGS[3]) #same goes for here
