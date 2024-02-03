@@ -8,7 +8,7 @@ echo "Waiting on queue to empty..."
 echo "Starting..."
 
 # Define the list of arguments
-S_ARGS=$(seq 41 80) # 11 12 13 14 15 16 17 18 19 46 47 48 49 50 51 52 53 54 55 56 57 58 59" #29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
+S_ARGS=$(seq 37 65) # 11 12 13 14 15 16 17 18 19 46 47 48 49 50 51 52 53 54 55 56 57 58 59" #29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47"
 TEMP_ARGS="20" #20" # 30 40"
 DELTAE_ARGS="2"
 ATOM_NUMBER="100" #"10 50 100 1000"
@@ -40,7 +40,7 @@ for Nat in $ATOM_NUMBER; do
                             additional_minutes=$((($S - 20) * 10))
                             time_allocation="00:$(($additional_minutes + 10)):00"
                         else
-                            time_allocation="00:60:00"
+                            time_allocation="00:180:00"
                         fi
                     else
                         #increase time allowance when atom number is increased
