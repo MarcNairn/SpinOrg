@@ -40,7 +40,7 @@ for Nat in $ATOM_NUMBER; do
                             additional_minutes=$((($S - 20) * 10))
                             time_allocation="00:$(($additional_minutes + 10)):00"
                         else
-                            time_allocation="00:180:00"
+                            time_allocation="00:240:00"
                         fi
                     else
                         #increase time allowance when atom number is increased
