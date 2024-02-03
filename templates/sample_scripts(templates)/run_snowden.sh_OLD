@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --job-name=selfSynch-phi
+#SBATCH -N 7 # number of nodes
+#SBATCH -n 100 # number of cores
+#SBATCH --time=2-00:00:00
+#SBATCH -o slurm.%N.%j.out # STDOUT
+#SBATCH -e slurm.%N.%j.err # STDERR
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=luigi@lusi.uni-sb.de
+#SBATCH --partition=days
+
+srun JULIA_DEPOT_PATH=./julia julia -p 100 run_parallel_snowden.jl
