@@ -24,5 +24,7 @@ docs/site/
 Manifest.toml
 
 
-# Ignore the pm_sims folder
+# Ignore folders
 pm_sims/
+templates/
+DTWA/
