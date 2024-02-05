@@ -28,3 +28,6 @@ Manifest.toml
 pm_sims/
 templates/
 DTWA/
+
+#Ignore files with string
+static_pump_Nmc*
