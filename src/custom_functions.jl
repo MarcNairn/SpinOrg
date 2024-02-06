@@ -393,5 +393,31 @@ function load_data_pm(directory::AbstractString, Nat::Int, temp::Int, Slist::Tup
     merge_sim(sim...)
 end
 
+function load_splitting_pm(directory::AbstractString, Nat::Int, temp::Int, Slist::Tuple, Delta_e::Int)
+    sim = Vector{Any}(undef, length(Slist) * 1000)
+    sim_idx = 1
 
+    println("loading data...")
+
+    for file in readdir(directory)
+        for S in Slist[1]:1:Slist[end]
+            if endswith(file, ".jld2") && contains(file, "pm_init_spin_badcav") &&
+                contains(file, "temp=$temp,") && contains(file, "Nat=$Nat,") &&
+                contains(file, "Delta_e=$Delta_e,") && contains(file, "S=$S,")
+
+                filetemp = joinpath(directory, file)
+                sim[sim_idx] = load_datal(filetemp)
+                sim_idx += 1
+            end
+            println("Files for g=$S loaded")
+        end
+    end
+
+    println("all files loaded!")
+
+    # Filter out any unused elements in sim
+    sim = filter(x -> x !== nothing, sim)
+
+    merge_sim(sim...)
+end
 
