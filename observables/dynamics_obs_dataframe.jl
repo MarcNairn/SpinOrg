@@ -31,11 +31,12 @@ dict= Dict(
 
 U₁ = 0.0
 U₂ = 0.0
-S₁ = 10
-S₂ = 10
+g = 10
+S₁ = g
+S₂ = g
 
 κ = 200
-Δₑ = κ/10
+omegau = κ/10
 Δc = -κ
 deltaD = 10
 N = 100
@@ -43,9 +44,12 @@ N_MC = 100
 
 tspan = (0.0, 10.0)
 
-p = System_p(U₁, U₂,S₁, S₂, Δₑ, Δc, κ, deltaD/2, N, tspan,N_MC)
+p = System_p(U₁, U₂,S₁, S₂, omegau, Δc, κ, deltaD/2, N, tspan,N_MC)
 
 sim = many_trajectory_solver(p,saveat=0.02, seed=abs(rand(Int)))
 
 df = sim2df(sim, dict)
 
+# Save DataFrame to CSV file with parameters in the filename
+filename = "observables_g=$(g)_omegau=$(omegau)_kappa=$(κ)_deltaD=$(deltaD).csv"
+CSV.write(filename, df)
