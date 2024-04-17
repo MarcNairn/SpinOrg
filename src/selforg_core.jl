@@ -183,7 +183,7 @@ const σ₃ = Complex[1. 0.; 0. -1.]
     function many_trajectory_solver(p::System_p;saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e9))#, reltol::Float64=1e-4)
         prob, monte_prob = define_prob_from_parameters(p,seed)
         #print("calculating $(p.N_MC) trajectories on $(gethostname()) with $(nworkers()) workers..")
-        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA(), EnsembleThreads(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress=true)
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, EM(), EnsembleThreads(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress=true)
 
         # EnsembleDistributed() recommended here when each trajectory is not very quick (like here)
         println("done in $elt seconds.")
