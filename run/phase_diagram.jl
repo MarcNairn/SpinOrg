@@ -20,7 +20,7 @@ dict= Dict(
 );
 
 ### PARAMETERS ###
-N = parse(Int, ARGS[1]); ### ATOM NUMBER (READ FROM TERMINAL)
+N = 200; ### ATOM NUMBER (READ FROM TERMINAL)
 
 kappa = 100
 omegauv = 5:2:60; ### LIST OF ATOMIC FREQUENCIES
@@ -39,5 +39,7 @@ p_array = [
 ]
 
 
-sim = extract_solution(many_trajectory_solver(p_array, saveat=0.02, seed=abs(rand(Int)), dt=1e-5));
+sim = extract_solution(many_trajectory_solver(p_array, saveat=0.05, seed=abs(rand(Int)), dt=1e-5));
 sorted_sim = split_sim_from_par(sim);
+
+
