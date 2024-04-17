@@ -192,14 +192,15 @@ const σ₃ = Complex[1. 0.; 0. -1.]
     
 
 
-    function many_trajectory_solver(ps::Array{System_p,1};saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12))
+    function many_trajectory_solver(ps::Array{System_p,1};saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12), dt::Float64)
         prob, monte_prob = define_prob_from_parameters(ps,seed)
         N_MC = sum([p.N_MC for p in ps])
-        print("calculating $N_MC trajectories on $(gethostname()) with $(nworkers()) workers..")
-        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress = true)
+       #print("calculating $N_MC trajectories on $(gethostname()) with $(nworkers()) workers..")
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, EM(), EnsembleThreads(), trajectories=N_MC, saveat=saveat, maxiters=maxiters; dt=dt)
         println("done in $elt seconds.")
         return sim
     end
+
 
 
     
