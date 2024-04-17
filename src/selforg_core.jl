@@ -270,35 +270,35 @@ function join_trajectories(sim::Array{Sol,1},idx)
     u0
 end
 
-function sim2df(sim::Array{Sol,1})
-    nvars = size(sim[1].u)[1]
-    N::Int = (nvars-2)/5
+# function sim2df(sim::Array{Sol,1})
+#     nvars = size(sim[1].u)[1]
+#     N::Int = (nvars-2)/5
 
-    value_names = Symbol[]
-    for var in ["x_","p_","sx_","sy_","sz_"]
-        for i = 1:N
-            push!(value_names,Symbol(var*"$i"))
-        end
-    end
-    push!(value_names, :a_r)
-    push!(value_names, :a_i)
-    # push!(value_names, :timestamp)
-    # push!(value_names, :traj)
+#     value_names = Symbol[]
+#     for var in ["x_","p_","sx_","sy_","sz_"]
+#         for i = 1:N
+#             push!(value_names,Symbol(var*"$i"))
+#         end
+#     end
+#     push!(value_names, :a_r)
+#     push!(value_names, :a_i)
+#     # push!(value_names, :timestamp)
+#     # push!(value_names, :traj)
 
-    dfs = DataFrame[]
-    for (k,sol) in enumerate(sim)
-        dict = Dict{Symbol,Any}(value_names[i] => sol.u[i,:] for i = 1:nvars)
-        dict[:a_r] = sol.u[5N+1,:]
-        dict[:a_i] = sol.u[5N+2,:]
-        for (o_, o) in observable_dict
-            dict[o_] = expect(o,sol)
-        end
-        dict[:timestamp] = sol.t
-        dict[:traj] = k
-        push!(dfs,DataFrame(dict))
-    end
-    vcat(dfs...)
-end
+#     dfs = DataFrame[]
+#     for (k,sol) in enumerate(sim)
+#         dict = Dict{Symbol,Any}(value_names[i] => sol.u[i,:] for i = 1:nvars)
+#         dict[:a_r] = sol.u[5N+1,:]
+#         dict[:a_i] = sol.u[5N+2,:]
+#         for (o_, o) in observable_dict
+#             dict[o_] = expect(o,sol)
+#         end
+#         dict[:timestamp] = sol.t
+#         dict[:traj] = k
+#         push!(dfs,DataFrame(dict))
+#     end
+#     vcat(dfs...)
+# end
 ######################################################################
 
 ############################## OBSERVABLES ###########################
