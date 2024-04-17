@@ -8,6 +8,21 @@ function traj_X2(sol::Sol)
 end
 X2 = Observable(traj_X2,L"N^{-1}\sum_j (\sigma_x^j \cos(x_j))^2",L"X",L"order parameter $X^2$");
 
+### SIMS TO DATAFRAME
+function sim2df(sim::Array{Sol,1}, obs_dict::Dict)
+    value_names = keys(obs_dict) 
+    dfs = DataFrame[]
+
+    dict = Dict{Symbol,Any}()
+    for (o_, o) in obs_dict
+        dict[o_] = expect(o,sim)
+    end
+    #dict[:timestamp] = sim[1].t
+
+    push!(dfs,DataFrame(dict))
+
+    vcat(dfs...)
+end;
 
 ### DEFINE OBSERVABLE DICTIONARY OF INTEREST ###
 dict= Dict(
@@ -19,8 +34,9 @@ dict= Dict(
     :Cos2 => Cos2,
 );
 
+
 ### PARAMETERS ###
-N = 200; ### ATOM NUMBER (READ FROM TERMINAL)
+N = 200; ### ATOM NUMBER 
 
 kappa = 100
 omegauv = 5:2:60; ### LIST OF ATOMIC FREQUENCIES
@@ -43,3 +59,9 @@ sim = extract_solution(many_trajectory_solver(p_array, saveat=0.05, seed=abs(ran
 sorted_sim = split_sim_from_par(sim);
 
 
+### DATA MANIPULATION & STORAGE
+
+simsdf = [sim2df(sorted_sim[i],dict) for i in 1:length(sorted_sim)];
+JLD2.jldopen("short_time_sim_dfs_N=$(N).jld2", "w") do file
+    write(file, "solution", simsdf)
+end
