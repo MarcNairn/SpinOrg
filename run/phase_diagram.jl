@@ -38,7 +38,7 @@ dict= Dict(
 
 
 ### PARAMETERS ###
-N = 400; ### ATOM NUMBER 
+N = parse(Int, ARGS[2]); ### ATOM NUMBER (read from console)
 
 kappa = 100
 omegauv = 5:2:60; ### LIST OF ATOMIC FREQUENCIES
