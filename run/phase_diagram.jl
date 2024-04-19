@@ -1,6 +1,8 @@
 include("../src/selforg_core.jl")
 include("../src/custom_functions.jl")
 
+sim_index = parse(Int, ARGS[1])
+
 # X = ∑ⱼ(σₓʲ cos(xⱼ))^2/N^2
 function traj_X2(sol::Sol)
     N::Int = try sol.p.N catch; sol.p[10] end
@@ -36,12 +38,12 @@ dict= Dict(
 
 
 ### PARAMETERS ###
-N = 200; ### ATOM NUMBER 
+N = 400; ### ATOM NUMBER 
 
 kappa = 100
 omegauv = 5:2:60; ### LIST OF ATOMIC FREQUENCIES
 Deltac = -kappa;
-Ntraj = 100 ### TRAJECTORY NUMBER
+Ntraj = 10 ### TRAJECTORY NUMBER
 tlist = (0.0, 10.0) ### SIM TIME
 deltaD = 10; ### DOPPLER WIDTH ~ temperature 
 gvrange = 5:2:70; ### UNNORMALISED COUPLING
@@ -56,12 +58,17 @@ p_array = [
 
 
 sim = extract_solution(many_trajectory_solver(p_array, saveat=0.05, seed=abs(rand(Int)), dt=1e-5));
-sorted_sim = split_sim_from_par(sim);
+
+JLD2.jldopen("short_time_sim_N=$(N)_i=$(sim_index).jld2", "w") do file
+        write(file, "solution", sim)
+    end
+
+# sorted_sim = split_sim_from_par(sim);
 
 
-### DATA MANIPULATION & STORAGE
+# ### DATA MANIPULATION & STORAGE
 
-simsdf = [sim2df(sorted_sim[i],dict) for i in 1:length(sorted_sim)];
-JLD2.jldopen("short_time_sim_dfs_N=$(N).jld2", "w") do file
-    write(file, "solution", simsdf)
-end
+# simsdf = [sim2df(sorted_sim[i],dict) for i in 1:length(sorted_sim)];
+# JLD2.jldopen("short_time_sim_dfs_N=$(N).jld2", "w") do file
+#     write(file, "solution", simsdf)
+# end
