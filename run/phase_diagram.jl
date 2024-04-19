@@ -58,7 +58,6 @@ p_array = [
 
 
 sim = extract_solution(many_trajectory_solver(p_array, saveat=0.05, seed=abs(rand(Int)), dt=1e-5));
-
 JLD2.jldopen("short_time_sim_N=$(N)_i=$(sim_index).jld2", "w") do file
         write(file, "solution", sim)
     end
