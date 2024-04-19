@@ -13,4 +13,4 @@
 # File name for error output
 #SBATCH --error=short_time_phase_diagram-%a_%A.err
 
-srun julia run/phase_diagram.jl
+srun julia run/phase_diagram.jl $SLURM_ARRAY_TASK_ID
