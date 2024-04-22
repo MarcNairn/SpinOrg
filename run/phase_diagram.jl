@@ -29,7 +29,6 @@ end;
 ### DEFINE OBSERVABLE DICTIONARY OF INTEREST ###
 dict= Dict(
     :X2 => X2,
-    :Ekin => Ekin,
     :adaga => adaga,
     :Sz => Sz,
     :kurt => kurt,
