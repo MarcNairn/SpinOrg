@@ -6,4 +6,4 @@ while [ $(squeue | wc -l) -gt 1 ]; do
 done
 
 # Run Julia file with argument passed from the command line
-julia phasediagram.jl "$1"
+julia phase_diagram_sims2df.jl "$1"
