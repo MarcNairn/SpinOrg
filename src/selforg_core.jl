@@ -103,8 +103,8 @@ end
     function f_noise(du,u,p,t)
         N::Int = p.N
         du[1:5N] .= 0.0
-        du[5N+1] = sqrt(2*p.κ)
-        du[5N+2] = sqrt(2*p.κ)
+        du[5N+1] = sqrt(p.κ*1/2)
+        du[5N+2] = sqrt(p.κ*1/2)
     end
 
 ###INITIAL CONDITIONS###
