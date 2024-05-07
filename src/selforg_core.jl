@@ -183,7 +183,7 @@ const σ₃ = Complex[1. 0.; 0. -1.]
     function many_trajectory_solver(p::System_p;saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e9))#, reltol::Float64=1e-4)
         prob, monte_prob = define_prob_from_parameters(p,seed)
         #print("calculating $(p.N_MC) trajectories on $(gethostname()) with $(nworkers()) workers..")
-        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, EM(), EnsembleThreads(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress=true)
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA2(), EnsembleThreads(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress=true)
 
         # EnsembleDistributed() recommended here when each trajectory is not very quick (like here)
         println("done in $elt seconds.")
@@ -192,16 +192,23 @@ const σ₃ = Complex[1. 0.; 0. -1.]
     
 
 
-    function many_trajectory_solver(ps::Array{System_p,1};saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12), dt::Float64)
+    function many_trajectory_solver(ps::Array{System_p,1};saveat::Float64=10.0,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12))
         prob, monte_prob = define_prob_from_parameters(ps,seed)
         N_MC = sum([p.N_MC for p in ps])
        #print("calculating $N_MC trajectories on $(gethostname()) with $(nworkers()) workers..")
-        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, EM(), EnsembleThreads(), trajectories=N_MC, saveat=saveat, maxiters=maxiters; dt=dt)
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA2(), EnsembleThreads(), trajectories=N_MC, saveat=saveat, maxiters=maxiters)
         println("done in $elt seconds.")
         return sim
     end
 
-
+    function ode_trajectory_solver(ps::Array{System_p,1};saveat::Float64=10.0,seed::Int=abs(rand(Int)), maxiters::Int=Int(1e12))
+        prob, monte_prob = define_ode_prob_from_parameters(ps,seed)
+        N_MC = sum([p.N_MC for p in ps])
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, TRBDF2(autodiff=false), reltol=1e-3, abstol=1e-3, EnsembleThreads(), trajectories=N_MC, saveat=saveat, maxiters=maxiters, progress=true)
+        ### Stiff ODE at low tolerances, need TRBDF2() solver
+        println("done in $elt seconds.")
+        return sim
+    end
 
     
 
