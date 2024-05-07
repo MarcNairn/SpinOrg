@@ -39,12 +39,12 @@ dict= Dict(
 );
 
 ### READ SIMULATIONS FROM DIRECTORY
-sim =  load_data_pm_generic(pwd(), "N=$(N)_i")
+sim =  load_data_pm_generic("ode_phasediagram_N=100_",99)
 ### SORT THROUGH PARAMETERS
 sorted_sim =  split_sim_from_par(sim);
 ### CONVERT TO DATAFRAME ARRAY
 simsdf = [sim2df(sorted_sim[i],dict) for i in 1:length(sorted_sim)]
 ### SAVE DATAFRAME ARRAY
-JLD2.jldopen("short_time_sim_dfsN=$(N).jld2", "w") do file
+JLD2.jldopen("short_time_ode_dfsN=$(N).jld2", "w") do file
     write(file, "solution", simsdf)
 end
