@@ -119,7 +119,7 @@ end
 
 function load_datal(filename::String,n::Int)
     sim = []
-    for i in 1:n
+    for i in 0:n
         filetemp = filename * string(i) * ".jld2"
         println("loading "* filetemp* "...")
         push!(sim,load_datal(filetemp))
