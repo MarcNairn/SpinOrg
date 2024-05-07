@@ -2,7 +2,7 @@
 
 #REMOVED MODULE CALLS
 
-using DifferentialEquations: EnsembleSolution, RODESolution
+using DifferentialEquations: EnsembleSolution, RODESolution, ODESolution
 using JLD, JLD2
 
 export extract_solution, save_datal, load_datal, Sol,merge_sol, merge_sim
@@ -17,6 +17,10 @@ struct Sol
 end
 
 Sol(u,p,t) = Sol(u,p,t,"")
+
+function extract_solution(sol::ODESolution)
+    [Sol(hcat(sol.u...),sol.prob.p,sol.t,repr(sol.alg))]
+end
 
 function extract_solution(sol::RODESolution)
     [Sol(hcat(sol.u...),sol.prob.p,sol.t,repr(sol.alg))]
