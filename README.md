@@ -132,10 +132,46 @@ To build the multiple iterations of the system, and thus generating the initial 
         return prob, monte_prob
     end
 ```
+In practice, all the functionalities described above will lie under the hood of the workhorse of the program, ```many_trajectory_solver```, which, once the Heisenberg-Langevin equations are defined, only needs the parameter struct passed to solve the set of SDEs:
+```julia
+    function many_trajectory_solver(p::System_p;saveat::Float64,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12))
+        prob, monte_prob = define_prob_from_parameters(p,seed)
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA2(), EnsembleThreads(), trajectories=p.N_MC, saveat=saveat, maxiters=maxiters, progress=true)
+        println("done in $elt seconds.")
+        return sim
+    end
+### We can also pass several parameters at once to the solver when we want to scan parameter space
+    function many_trajectory_solver(ps::Array{System_p,1};saveat::Float64,seed::Int=abs(rand(Int)),maxiters::Int=Int(1e12))
+        prob, monte_prob = define_prob_from_parameters(ps,seed)
+        N_MC = sum([p.N_MC for p in ps])
+        elt = @elapsed sim = solve(monte_prob::EnsembleProblem, SOSRA2(), EnsembleThreads(), trajectories=N_MC, saveat=saveat, maxiters=maxiters, progress=true)
+        println("done in $elt seconds.")
+        return sim
+    end
+```
+For each trajectory, we obtain a struct ```Sol```, containing the array of dynamical variables at every given timestep, keeping track of the parameters and the algorithm used in that particular simulation. When we instead perform a simulation with multiple realizations, we obtain a ```sim::Array{Sol,1}``` object, where we stack up all the individual ```Sol``` for each trajectory in $1\leq i\leq\mathcal{N}_T$. 
+
+We approximate the true dynamics of the quantum operators by averaging over the trajectories of the semiclassical variables such that, if we want to track the dynamics of some operator $\hat{O}(t)$ we average its semiclassical counterpart $O_i$ such that $\hat{A}(t)\approx \mathcal{N}_T^{-1}\sum_i O_i$. We do this as follows:
+
+```julia
+function expect_full(o::Observable,sim::Array{Sol,1})
+    [expect(o,sim[j]) for j=1:length(sim)]
+end
+
+function expect(o::Observable,sim::Array{Sol,1})
+    Os = expect_full(o,sim)
+    Omean = mean(Os)
+    Ostd = stdm(Os,Omean)
+    bb = hcat(Os...)
+    Oq90 = [quantile(bb[i,:],[0.05,0.95]) for i in 1:size(bb)[1]]
+
+    return Omean, Ostd, Oq90
+end
+```
 
 ## Example usage
 
-In practice, all the functionalities described above will lie under the hood of the workhorse of the program, ```many_trajectory_solver```, which, once the Heisenberg-Langevin equations are defined, only needs the parameter struct passed to solve the set of SDEs:
+
 ```julia
 
 # Import the source and plotting packages
@@ -159,7 +195,8 @@ p= System_p(0.0, 0.0, g_scaled, g_scaled, omega, Deltac, kappa, deltaD/2, N, tli
 # Launch simulation, initial conditions and noise over several initializations is automatically set
 sim = ode_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
 ```
-If we then wanted to plot, say, the cavity population over time we can call ```plot_adaga(sim)``` to plot the average, top and bottom quantiles and standard deviation of our many trajectory simulation. 
+
+If we then wanted to plot, say, the cavity population over time we evaluate ```y,y_std,y_q90 = expect(X2,sim)``` to obtain the average, standard deviation and top 90 quantile of our many trajectory simulation. 
 
 ![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
