@@ -182,8 +182,8 @@ Here we describe how we run the dynamics in practice, for a particular point in 
 ```julia
 
 # Import the source and plotting packages
-using Selforg_core
-using Plotting
+include("selforg_core.jl")
+using("plotting.jl")
 
 # Define simulation parameter struct
 # recall the frequency unit is inverse recoils \omega_R^{-1}
