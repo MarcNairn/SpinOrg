@@ -196,7 +196,26 @@ sim = ode_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
 ```
 
 If we then wanted to plot, say, the cavity population over time we evaluate ```y,y_std,y_q90 = expect(X2,sim)``` to obtain the average, standard deviation and top 90 quantile of our many trajectory simulation. 
+```julia
+function plot_adaga(sim::Array{Sol,1})
+    y,y_std,y_q90 = expect(adaga,sim)
+    y_q90 = hcat(y_q90...)
+    tlist = sim[1].t
 
+    matplotlib[:rc]("axes", labelpad=0.5)
+
+    fig, ax = subplots(1,1,figsize=[6.50, 4.])
+    color="C2"
+    ax[:set_ylabel](L"cavity population $|\alpha|^2/N_\mathrm{at}$")
+    ax[:set_xlabel](L"time (units of $\omega_\mathrm{r}^{-1}$)")
+    ax[:plot](tlist.+1,y.*1/sim[1].p.N,color=color)
+    ax[:fill_between](tlist.+1,y_q90[1,:]*1/sim[1].p.N,y_q90[2,:]*1/sim[1].p.N,color=color,alpha=0.2)
+    #ax[:fill_between](tlist.+1,y.+y_std,y.-y_std,color=color,alpha=0.5)
+    fig[:tight_layout]()
+    return fig, ax
+end
+```
+We show what the output for these parameters below:
 ![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
 Note that the plotting scripts are written wholly using PyPlot and not Julias native ```Plots.jl```.
