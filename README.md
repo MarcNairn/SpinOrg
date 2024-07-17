@@ -156,7 +156,8 @@ p= System_p(0.0, 0.0, g_scaled, g_scaled, omega, Deltac, kappa, deltaD/2, N, tli
 sim = ode_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
 ```
 If we then wanted to plot, say, the cavity population over time we can call ```plot_adaga(sim)``` to plot the average, top and bottom quantiles and standard deviation of our many trajectory simulation. 
-![Cavity population over time](plots/sample_images/adaga_SO.svg")
+
+![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
 Note that the plotting scripts are written wholly using PyPlot and not Julias native ```Plots.jl```.
 
