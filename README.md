@@ -170,8 +170,7 @@ end
 ```
 
 ## Example usage
-
-
+Here we describe how we run the dynamics in practice, for a particular point in the phase diagram which we know to be _strongly organized_, for more info see the paper. 
 ```julia
 
 # Import the source and plotting packages
