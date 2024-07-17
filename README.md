@@ -195,7 +195,7 @@ p= System_p(0.0, 0.0, g_scaled, g_scaled, omega, Deltac, kappa, deltaD/2, N, tli
 sim = ode_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
 ```
 
-If we then wanted to plot, say, the cavity population over time we evaluate ```y,y_std,y_q90 = expect(X2,sim)``` to obtain the average, standard deviation and top 90 quantile of our many trajectory simulation. 
+If we then wanted to plot, say, the cavity population over time we evaluate ```y,y_std,y_q90 = expect(adaga,sim)``` to obtain the average, standard deviation and top 90 quantile of our many trajectory simulation. 
 ```julia
 function plot_adaga(sim::Array{Sol,1})
     y,y_std,y_q90 = expect(adaga,sim)
