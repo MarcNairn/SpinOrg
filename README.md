@@ -183,7 +183,7 @@ Here we describe how we run the dynamics in practice, for a particular point in 
 
 # Import the source and plotting packages
 include("selforg_core.jl")
-using("plotting.jl")
+include("plotting.jl")
 
 # Define simulation parameter struct
 # recall the frequency unit is inverse recoils \omega_R^{-1}
