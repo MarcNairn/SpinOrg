@@ -1,6 +1,6 @@
 # SpinOrg.jl
 
-This package provides a comprehensive guide to understanding, utilizing, and modifying the Julia codebase designed to solve the differential equations governing the dynamics of a collection of spins with kinetic energy in a cavity. The code implements a combination of the [Truncated Wigner](https://www.sciencedirect.com/science/article/pii/S0003491610000382?via%3Dihub) for the cavity and spin-motional variables and [Discrete Truncated Wigner](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.5.011022) for the internal spin degreees of freedom, generates the Heisenberg-Langevin equations for these variables for each spin and solves them using state-of-the-art numerical techniques from `DifferentialEquations.jl`. For further details on the theory, realistic parameter ranges and general physics behind the code, see [the paper once available](https://arxiv.org/search/?searchtype=author&query=Nairn%2C+M).
+This program provides a comprehensive guide to understanding, utilizing, and modifying the Julia codebase designed to solve the differential equations governing the dynamics of a collection of spins with kinetic energy in a cavity. The code implements a combination of the [Truncated Wigner](https://www.sciencedirect.com/science/article/pii/S0003491610000382?via%3Dihub) for the cavity and spin-motional variables and [Discrete Truncated Wigner](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.5.011022) for the internal spin degreees of freedom, generates the Heisenberg-Langevin equations for these variables for each spin and solves them using state-of-the-art numerical techniques from `DifferentialEquations.jl`. For further details on the theory, realistic parameter ranges and general physics behind the code, see [the paper once available](https://arxiv.org/search/?searchtype=author&query=Nairn%2C+M).
 
 ## Overview
 The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest. In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models.
@@ -160,6 +160,7 @@ If we then wanted to plot, say, the cavity population over time we can call ```p
 ![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
 Note that the plotting scripts are written wholly using PyPlot and not Julias native ```Plots.jl```.
+
 
 ### Acknowledgements
 Many thanks to Luigi Gianelli who developed a good part of the original code.
