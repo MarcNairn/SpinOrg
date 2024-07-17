@@ -216,6 +216,7 @@ function plot_adaga(sim::Array{Sol,1})
 end
 ```
 We show what the output for these parameters below:
+
 ![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
 Note that the plotting scripts are written wholly using PyPlot and not Julias native ```Plots.jl```.
