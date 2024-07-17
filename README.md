@@ -7,7 +7,15 @@ This program provides a comprehensive guide to understanding, utilizing, and mod
 </div>
 
 ## Overview
-The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest. In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models where we expect our semiclassical approach to hold. 
+The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest:
+
+$$\partial_t \hat{\rho} = -\frac{\mathrm{i}}{\hbar}\left[\hat{H}, \hat{\rho}\right] + 2\kappa\left(\hat{a}\hat{\rho} \hat{a}^\dagger-\frac{1}{2}\{\hat{a}^\dagger \hat{a}, \hat{\rho}\}\right)$$
+
+where the unitary dynamics are governed by, 
+
+$$     \hat{H}=-\hbar\Delta \hat{a}^\dagger \hat{a} + \hat{H}_{\mathrm{at}}+ \hbar Ng\hat{X}\left( \hat{a}^\dagger +\hat{a}\right). $$
+
+In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models where we expect our semiclassical approach to hold. 
 
 ```mermaid
 graph TD;
