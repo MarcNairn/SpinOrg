@@ -210,7 +210,6 @@ function plot_adaga(sim::Array{Sol,1})
     ax[:set_xlabel](L"time (units of $\omega_\mathrm{r}^{-1}$)")
     ax[:plot](tlist.+1,y.*1/sim[1].p.N,color=color)
     ax[:fill_between](tlist.+1,y_q90[1,:]*1/sim[1].p.N,y_q90[2,:]*1/sim[1].p.N,color=color,alpha=0.2)
-    #ax[:fill_between](tlist.+1,y.+y_std,y.-y_std,color=color,alpha=0.5)
     fig[:tight_layout]()
     return fig, ax
 end
