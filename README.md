@@ -7,7 +7,7 @@ This program provides a comprehensive guide to understanding, utilizing, and mod
 </div>
 
 ## Overview
-The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest. In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models.
+The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest. In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models where we expect our semiclassical approach to hold. 
 
 ```mermaid
 graph TD;
