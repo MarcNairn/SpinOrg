@@ -2,6 +2,10 @@
 
 This program provides a comprehensive guide to understanding, utilizing, and modifying the Julia codebase designed to solve the differential equations governing the dynamics of a collection of spins with kinetic energy in a cavity. The code implements a combination of the [Truncated Wigner](https://www.sciencedirect.com/science/article/pii/S0003491610000382?via%3Dihub) for the cavity and spin-motional variables and [Discrete Truncated Wigner](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.5.011022) for the internal spin degreees of freedom, generates the Heisenberg-Langevin equations for these variables for each spin and solves them using state-of-the-art numerical techniques from `DifferentialEquations.jl`. For further details on the theory, realistic parameter ranges and general physics behind the code, see [the paper once available](https://arxiv.org/search/?searchtype=author&query=Nairn%2C+M).
 
+<div style="text-align:center">
+    <img src="plots/sample_images/Fig1.png" width="75%">
+</div>
+
 ## Overview
 The following workflow roughly describes how to implement the code. The code has been developed to specifically address our Lindbladian of interest. In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models.
 
