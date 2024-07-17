@@ -215,7 +215,8 @@ function plot_adaga(sim::Array{Sol,1})
     return fig, ax
 end
 ```
-We show what the output for these parameters below:
+
+Where we can find the immediate emergence of the superradiant phase for the cavity field:
 
 ![Cavity population over time](plots/sample_images/adaga_SO.svg)
 
