@@ -200,7 +200,7 @@ g_scaled = sqrt.(-1 * (kappa^2 + Deltac^2) / (2 * Deltac) / N) * sqrt.(g) #resca
 p= System_p(0.0, 0.0, g_scaled, g_scaled, omega, Deltac, kappa, deltaD/2, N, tlist, Ntraj)
 
 # Launch simulation, initial conditions and noise over several initializations is automatically set
-sim = ode_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
+sim = many_trajectory_solver(p, saveat=0.2, seed=abs(rand(Int)))
 ```
 
 If we then wanted to plot, say, the cavity population over time we evaluate ```y,y_std,y_q90 = expect(adaga,sim)``` to obtain the average, standard deviation and top 90 quantile of our many trajectory simulation. 
