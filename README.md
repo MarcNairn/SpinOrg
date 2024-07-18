@@ -16,7 +16,7 @@ where the unitary dynamics are governed by,
 $$     \hat{H}=-\hbar\Delta \hat{a}^\dagger \hat{a} + \hat{H}_{\mathrm{at}}+ \hbar Ng\hat{X}\left( \hat{a}^\dagger +\hat{a}\right). $$
 
 In principle, however, it suffices to change the Heisenberg-Langevin equations fed into the program to study a range of weakly to strongly coupled spin-cavity models where we expect our semiclassical approach to hold. 
-
+The code performs as follows:
 ```mermaid
 graph TD;
     A[Define system parameters and constants] --> B[Define semiclassical initial conditions for spin and cavity quadratures];
