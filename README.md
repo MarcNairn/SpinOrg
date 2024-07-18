@@ -162,6 +162,17 @@ For each trajectory, we obtain a struct ```Sol```, containing the array of dynam
 We approximate the true dynamics of the quantum operators by averaging over the trajectories of the semiclassical variables such that, if we want to track the dynamics of some operator $\hat{O}(t)$ we average its semiclassical counterpart $O_i$ such that $\hat{A}(t)\approx \mathcal{N}_T^{-1}\sum_i O_i$. We do this as follows:
 
 ```julia
+Base.@kwdef struct Observable
+    s_traj
+    formula::String
+    short_name::String = formula
+    name::String = short_name
+end
+
+function expect(o::Observable,sol::Sol)
+    o.s_traj(sol)
+end
+
 function expect_full(o::Observable,sim::Array{Sol,1})
     [expect(o,sim[j]) for j=1:length(sim)]
 end
