@@ -197,7 +197,7 @@ include("selforg_core.jl")
 include("plotting.jl")
 
 # Define simulation parameter struct
-# recall the frequency unit is inverse recoils \omega_R^{-1}
+# recall the frequency unit is the single atom recoil frequency \omega_R
 N = 100 ; # number of atoms
 kappa = 100; #cavity photon loss rate
 omega = 80 #inversion frequency \omegau goes with \sigma_z
