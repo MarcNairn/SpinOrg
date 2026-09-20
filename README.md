@@ -242,4 +242,4 @@ Note that the plotting scripts are written wholly using PyPlot and not Julias na
 
 
 <!-- ### Acknowledgements -->
- Many thanks to Luigi Gianelli who helped develop a good part of the original code. -->
+<!-- Many thanks to Luigi Gianelli who helped develop a good part of the original code. -->
