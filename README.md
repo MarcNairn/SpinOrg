@@ -241,5 +241,5 @@ Where we can find the immediate emergence of the superradiant phase for the cavi
 Note that the plotting scripts are written wholly using PyPlot and not Julias native ```Plots.jl```.
 
 
-### Acknowledgements
-Many thanks to Luigi Gianelli who helped develop a good part of the original code.
+<!-- ### Acknowledgements -->
+ Many thanks to Luigi Gianelli who helped develop a good part of the original code. -->
